@@ -1,0 +1,185 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '@layouts/Layout.astro';
+import ProjectItem from '@components/WeekListItem.astro';
+import Header from '@components/Header.astro';
+import banner from '@assets/banner.webp';
+import githubLogo from '@assets/github_light.svg';
+import type { ProjectPageInstance } from '@types';
+
+const projects = await Astro.glob('./weeks/*.astro');
+---
+
+<Layout title="Data structures portfolio">
+  <Header />
+  <main>
+    <section id="heading">
+      <div id="information">
+        <section>
+          <h1>Data structures</h1>
+          <h2>Interactive class portfolio</h2>
+          <Image id="banner" width={350} src={banner} alt="Clouds moving across the sky" />
+          <ul id="alumni-list">
+            <li>Alva Sáenz, Rodrigo José</li>
+            <li>Calle Huamantinco, Luis Eduardo</li>
+            <li>Del Carpio, Damaris Marian</li>
+            <li>Flores Cóngora, Paolo</li>
+            <li>Rojas Castañeda, Ruth Camila</li>
+            <li>Zegarra Medina, Jose Antonio</li>
+          </ul>
+          <div id="collegue">Software Engineering</div>
+          <div id="university">National University of San Marcos</div>
+        </section>
+        <footer id="github">
+          <Image src={githubLogo} alt="The GitHub logo" />
+          <a href="https://github.com/paoloose/202W0505" target="_blank">@paoloose/202W0505</a>
+        </footer>
+      </div>
+      <Image class="clouds" width={350} src={banner} alt="Clouds moving across the sky" />
+    </section>
+    <section id="assignments">
+      <h2>Assignments</h2>
+      <ul id="projects-list">
+        {
+          projects.map(async (project) => {
+            return (
+              <li>
+                <ProjectItem page={project as ProjectPageInstance} />
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    max-width: 100ch;
+
+    img {
+      margin-right: 10px;
+    }
+  }
+
+  #heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+
+    .clouds {
+      margin-left: 8px;
+      align-self: flex-end;
+    }
+    #banner {
+      display: none;
+      align-self: flex-end;
+      object-fit: cover;
+      max-width: 100%;
+    }
+  }
+
+  #information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 1.9rem;
+      margin: 0px;
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    #alumni-list {
+      padding-inline-start: 2rem;
+      margin-top: 20px;
+      margin-bottom: 24px;
+
+      li {
+        font-size: 0.9rem;
+        font-weight: 200;
+        margin-bottom: 4px;
+      }
+    }
+    #collegue, #university {
+      margin-top: 5px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+
+      img {
+        width: 20px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 680px) {
+    .clouds {
+      width: 300px;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 580px) {
+    .clouds {
+      width: 280px;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    #heading {
+      flex-direction: column;
+    }
+    .clouds {
+      display: none;
+      max-width: 300px;
+      object-fit: cover;
+    }
+    #banner {
+      display: block !important;
+      margin-bottom: 18px;
+    }
+    #github {
+      display: none;
+    }
+
+    #information h2 {
+      margin-bottom: 14px;
+    }
+  }
+
+  #assignments {
+    border-top: 1px solid var(--border-color);
+    h2 {
+      margin-bottom: 22px;
+    }
+
+    #projects-list {
+      margin-block: 0;
+      margin-inline: 0;
+      margin-inline-start: 0;
+      padding-inline-start: 0;
+    }
+    #projects-list li {
+      list-style-type: none;
+      margin-bottom: 25px;
+    }
+  }
+</style>

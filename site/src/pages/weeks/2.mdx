@@ -1,0 +1,73 @@
+---
+title: 'Assignment 2: Ranked Choice Voting'
+description: 'Building Java Programs Chapter 10: ArrayList. Study Case.'
+img: ''
+---
+
+import Snippet from '@components/Snippet.astro';
+import WeekLayout from '@layouts/WeekLayout.astro';
+
+<WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#logic-parser' n_week={2}>
+    When considering data structures and algorithms, it is essential to recognize that their abstraction extends beyond computational areas. In fact, society itself has demonstrated the significant impact of these abstract concepts by applying them to various spheres, including voting systems. In the United States, Ranked Choice Voting, also known as instant-runoff voting, has gained prominence as a voting system where voters rank candidates in order of preference. Let's briefly explore how this system works:
+    
+    To simplify things, let's use the candidates A, B, C, and D. Here is a list of voting preferences:
+
+    A   D   C   B
+    - ACBD
+    - BDCA
+    - CDBA
+    - CBAD
+    - ACDBDCBA
+    - BCAD 
+
+    In the traditional voting procedure, the first choice of each voter is counted. In this case, candidate A receives three votes, which is 37.5% of the total eight votes. However, no candidate has a clear majority. In ranked choice voting, the candidate with the lowest vote total (candidate D) is eliminated. The preferences are then updated:
+
+    - ACB
+    - ACB
+    - BCA
+    - CBA
+    - CBA
+    - ACB
+    - CBA
+    - BCA
+
+    Still, no candidate has a majority, so the candidate with the lowest vote total (candidate B) is eliminated. The preferences are updated again:
+
+    - A
+    - CAC
+    - CA
+    - CA
+    - CA
+    - AC
+    - CA
+    - CA
+
+    Now, candidate C has five votes and wins the election. It is important to note that in the first round of voting, candidate C was tied for second place. However, more voters preferred candidate C as a substitute if they couldn't get their preferred candidates.
+
+    We will develop a program that implements the ranked choice voting algorithm assuming we have complete preferences from each voter. The program will be developed in stages:
+
+    ## The Ballot Class
+
+    <Snippet file='Ballot.java' line_start={8} line_end={13}/>
+    
+    The Ballot Class should look like following:
+    <Snippet file='Ballot.java' />
+    
+    ## Counting Votes
+    hi
+
+    ## Incomplete preferences
+    Voters are normally allowed to fill out the ballot in an incomplete manner. For example, with the sample ballots with four candidates, you might have ballots that specify only a first choice or only two choices. When you have partial information, you can end up with empty ballots because the voter might have chosen candidates who are all eliminated.
+
+    <Snippet file='votes_incomplete.txt' />
+
+    After the first round, the D candidate would be eliminated. As it is the only voter's preference, the ballot will be left empty. The program should be able to remove the empty ballot for the next round and modify the percentages of the votes, considering that the total number of ballots is changing.
+
+    We'll begin by creating a
+
+    <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
+
+    Putting these pieces together, you get the following complete program:
+    <Snippet file='CountVotes.java' />
+
+</WeekLayout>

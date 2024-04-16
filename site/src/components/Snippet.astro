@@ -1,5 +1,4 @@
 ---
-import { SNIPPETS_BASE_URL } from 'src/constants';
 import fs from 'node:fs/promises';
 
 type Props = {
@@ -21,9 +20,12 @@ let content = await fs.readFile(url, 'utf-8');
 content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
 ---
 
-<code>
-  {content}
-</code>
+<div>
+  <span>{file}</span>
+  <code>
+    {content}
+  </code>
+</div>
 
 <style lang="scss">
   code {
@@ -34,5 +36,16 @@ content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
     overflow: auto;
     white-space: pre;
     margin-bottom: 10px;
+  }
+
+  div {
+    position: relative;
+  }
+  span {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    z-index: 10000;
+    font-size: 14px;
   }
 </style>

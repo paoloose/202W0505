@@ -33,7 +33,7 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
     # The Ballot Class
 
-    We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots. We decided to list each voter's preferences as a single line of data with the candidates listed from most desirable to least desirable, each separated with a tab character, making it easier to break up such a string into an array of strings. That's why the constructor will take an array of strings as a parameter:
+    We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots. We decided to list each voter's preferences as a single line of data with the candidates listed from most to least desirable, each separated with a tab character, making it easier to break up such a string into an array of strings. That's why the constructor will take an array of strings as a parameter:
 
     <Snippet file='Ballot.java' line_start={7} line_end={7}/>
 
@@ -62,25 +62,18 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
     # Counting Votes
 
-    Now that we have code to represent a ballot, we can turn to writing
-the overall program in a separate file called TallyVotes.java .
-Assume that votes are stored in a file called vote.txt . The first
-version of your program is supposed to read the information from
-this file to create an ArrayList of Ballot objects. You can then sort
-the list by candidate name and count the votes. As with the calendar
-sample program, you can call Collections.sort to sort the list. The
-reading and vote counting operations deserve to be written as
-methods. That leads to the following main method:
+    Now that the Ballot is represented, we can move forward to writing the overall program in a separate file called `CountVotes.java`. We stored the votes in a file called `votes.txt`. The program is supposed to read the information from this file to create an `ArrayList` of Ballot objects. You can then sort the list by candidate name and count the votes by calling the `Collections.sort`. Also, by the return of a boolean in the `oneRound` method we know whether or not the voting has ended. We added some code for reporting the round number. That leads to the following main method:
 
-...
-The readFile method involves reading the input file line by line and
-adding Ballot objects to an ArrayList . The Ballot constructorexpects an array of strings to specify the candidate choice. Recall
-that the plan is to have each input line list the candidates with tabs
-between candidate names. The String class has a method called
-split that provides a convenient way to break up this string into the
-individual names. It takes a parameter that specifies what separator
-or delimiter to use. The reading method, then, can be written as
-follows:
+    <Snippet file='CountVotes.java' line_start={4} line_end={17}/>
+
+    The reading and vote counting operations deserve to be written as methods.
+    - `readFile`: involves reading the input file line by line and adding Ballot objects to an `ArrayList`. The Ballot constructor expects an array of strings to specify the candidate choice. The String class has a method called split that provides a convenient way to break up this string into the individual names. It takes a parameter that specifies what separator or delimiter to use.
+
+    <Snippet file='CountVotes.java' line_start={19} line_end={28}/>
+
+    - `oneRound`: involves counting the votes for each candidate and determining if there is a winner. If there is no winner, the candidate with the fewest votes is eliminated. The method returns a boolean value that indicates whether the voting has ended.
+
+    <Snippet file='CountVotes.java' line_start={30} line_end={72}/>
 
     ### Incomplete preferences
     Voters are normally allowed to fill out the ballot in an incomplete manner. For example, with the sample ballots with four candidates, you might have ballots that specify only a first choice or only two choices. When you have partial information, you can end up with empty ballots because the voter might have chosen candidates who are all eliminated.
@@ -93,16 +86,12 @@ follows:
 
     <Snippet file='Ballot.java' line_start={26} line_end={28}/>
 
-    Moving onto the `CountVotes` program, it was necessary to include a test that ignores blank lines in the input file.
-
-    <Snippet file='CountVotes.java' line_start={19} line_end={28}/>
-    
-    The method that eliminates candidates, must also remove from the list of ballots any ballots that become empty. That way the percentages will be reported correctly on the next round of tallying.
+    Moving onto the `CountVotes` program, it was necessary to include a method that eliminates candidates but also removes from the list of ballots any ballots that become empty. That way the percentages will be reported correctly on the next round of tallying.
 
     <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
 
     ### Handling Ties
-    In the oneRound method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote.
+    In the `oneRound` method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote.
 
     <Snippet file='CountVotes.java' line_start={59} line_end={61}/>
 
@@ -123,7 +112,7 @@ follows:
     The Ballot Class should look like following:
     <Snippet file='Ballot.java' />
 
-    Putting these pieces together, you get the following complete program for counting votes:
+    Putting pieces together, you get the following complete program for counting votes:
     <Snippet file='CountVotes.java' />
 
 </WeekLayout>

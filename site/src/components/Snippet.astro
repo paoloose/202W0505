@@ -10,7 +10,12 @@ type Props = {
 
 const { file, line_start, line_end } = Astro.props;
 
-const url = new URL(`${SNIPPETS_BASE_URL}/${file}`, import.meta.url);
+let assets_dir = './../assets/code';
+if (import.meta.env.PROD) {
+  assets_dir = '../code';
+}
+
+const url = new URL(`${assets_dir}/${file}`, import.meta.url);
 
 let content = await fs.readFile(url, 'utf-8');
 content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');

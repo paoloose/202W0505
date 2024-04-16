@@ -5,12 +5,76 @@ img: ''
 ---
 
 import Snippet from '@components/Snippet.astro';
+import FileButton from '@components/FileButton.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 
 <WeekLayout h1_title='Detector antiplagio' main_id='#logic-parser' n_week={1}>
-  <Snippet file='Example.java' />
+  #### Ejercicio 1
 
-  Some literature...
+  Escriba una versión modificada del programa de vocabulario desarrollado que
+  utilice `Set`s en lugar de `ArrayList`s para almacenar sus palabras.
 
-  <Snippet file='Example.java' line_start={8} line_end={13}/>
+  #### Desarrollo
+
+  En la implementación original:
+
+  <Snippet file='AntiplagioV1.java' line_start={23} line_end={45} />
+
+  Podemos deshacernos de la lógica que elimina palabras repetidas, pues `Set`
+  internamente ignora los elementos repetidos.
+
+  <Snippet file='AntiplagioV2.java' line_start={23} line_end={33} />
+
+  Ahora bien, en la implementación original de `getCoincidencias`:
+
+  <Snippet file='AntiplagioV1.java' line_start={47} line_end={65} />
+
+  en lugar de ir recorriendo
+  ambas listas almacenando las coincidencias, hacemos uso de la función
+  `retainAll` de la clase `Set`, que conceptualmente es una *intersección de
+  conjuntos*.
+
+  <Snippet file='AntiplagioV2.java' line_start={35} line_end={39} />
+
+  #### Ejercicio 2
+
+  Probar el programa con un par de obras literarias de un mismo autor y considerar
+  los caracteres con tildes.
+
+  #### Desarrollo
+
+  Primero que nada, modificamos la expresión regular que recibe `Scanner.useDelimiter`
+  para reconocer tildes y ñ.
+
+  <Snippet file='AntiplagioV3.java' line_start={23} line_end={33} />
+
+  Con este arreglo, usaremos este algoritmo para analizar la similitud de dos obras
+  de Cortázar:
+
+  <FileButton file='cortazar_bestiario.txt' />
+  <br />
+  <FileButton file='cortazar_historia_de_cronopios_y_de_fama.txt' />
+
+  ```txt
+  Este programa compara dos archivos de texto
+  e informa el número de palabras en
+  común y el porcentaje de coincidencias
+
+  Archivo #1 nombre? ./cortazar_bestiario.txt
+  Archivo #2 nombre? ./cortazar_historia_de_cronopios_y_de_fama.txt
+
+  Archivo #1 palabras = 5638
+  Archivo #2 palabras = 6351
+  Palabras en común = 1754
+  % del archivo 1 en superposición  = 31.11032280950692
+  % del archivo 2 en superposición  = 27.61769800031491
+  ```
+
+  La implementación que usa `ArrayList` tardó (17 + 22 + 0) milisegundos, mientras que la
+  implementación con `Set` marcó (16 + 18 + 0) milisegundos. Estas 3 magnitudes de tiempo
+  representan los milisegundos de extracción de palabras únicas en el archivo 1, archivo 2
+  y la intersección de palabras, respectivamente.
+
+  \- Grupo 6
+
 </WeekLayout>

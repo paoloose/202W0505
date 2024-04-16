@@ -9,5 +9,10 @@ export default defineConfig({
   integrations: [mdx()],
   vite: {
     plugins: []
-  }
+  },
+  markdown: {
+    shikiConfig: {
+      theme: 'github-light',
+    }
+  },
 });

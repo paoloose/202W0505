@@ -1,0 +1,42 @@
+---
+import { PROJECT_NAME } from 'src/constants';
+
+type Props = {
+  file: string;
+}
+
+const { file } = Astro.props;
+
+let assets_dir = './../assets/file';
+if (import.meta.env.PROD) {
+  assets_dir = '../file';
+}
+---
+
+<a href=`/${PROJECT_NAME}/static/${file}` target="_blank">
+  {file}
+</a>
+
+<style lang="scss">
+  pre {
+    border-radius: 0.5rem !important;
+    background-color: #f5f5f5 !important;
+    display: block;
+    padding: 1rem;
+    font-size: 15px;
+    overflow: auto;
+    white-space: pre;
+    margin-bottom: 10px;
+  }
+
+  div {
+    position: relative;
+  }
+  span {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    z-index: 10000;
+    font-size: 14px;
+  }
+</style>

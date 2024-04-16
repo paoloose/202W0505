@@ -9,7 +9,7 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
 <WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#logic-parser' n_week={2}>
     When considering data structures and algorithms, it is essential to recognize that their abstraction extends beyond computational areas. In fact, society itself has demonstrated the significant impact of these abstract concepts by applying them to various spheres, including voting systems. In the United States, Ranked Choice Voting, also known as instant-runoff voting, has gained prominence as a voting system where voters rank candidates in order of preference. Let's briefly explore how this system works:
-    
+
     To simplify things, let's use the candidates A, B, C, and D. Here is a list of voting preferences:
 
     <Snippet file='votes1.txt'/>
@@ -31,12 +31,12 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots.
 
     <Snippet file='Ballot.java' line_start={8} line_end={13}/>
-    
+
     The Ballot Class should look like following:
     <Snippet file='Ballot.java' />
-    
+
     ## Counting Votes
-    
+
     hi
 
     ## Incomplete preferences
@@ -51,11 +51,11 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
 
     ## Handling Ties
-    In the oneRound method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote. 
+    In the oneRound method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote.
 
     <Snippet file='CountVotes.java' line_start={59} line_end={61}/>
 
-    Still, a new challenge arises in situations where there are multiple remaining candidates with the same number of votes in rounds after the first one. In such cases, it is necessary to eliminate one candidate to avoid a tie. 
+    Still, a new challenge arises in situations where there are multiple remaining candidates with the same number of votes in rounds after the first one. In such cases, it is necessary to eliminate one candidate to avoid a tie.
 
     After conducting research, we discovered that the ranked choice voting system has many tie-breaking rules to choose from. For example, the candidate with the fewest first-choice votes can be eliminated. If there is a tie for the fewest first-choice votes, the candidate with the fewest second-choice votes is eliminated, and so on.
 

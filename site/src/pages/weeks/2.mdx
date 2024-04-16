@@ -12,41 +12,23 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     
     To simplify things, let's use the candidates A, B, C, and D. Here is a list of voting preferences:
 
-    A   D   C   B
-    - ACBD
-    - BDCA
-    - CDBA
-    - CBAD
-    - ACDBDCBA
-    - BCAD 
+    <Snippet file='votes1.txt'/>
 
     In the traditional voting procedure, the first choice of each voter is counted. In this case, candidate A receives three votes, which is 37.5% of the total eight votes. However, no candidate has a clear majority. In ranked choice voting, the candidate with the lowest vote total (candidate D) is eliminated. The preferences are then updated:
 
-    - ACB
-    - ACB
-    - BCA
-    - CBA
-    - CBA
-    - ACB
-    - CBA
-    - BCA
+    <Snippet file='votes2.txt'/>
 
     Still, no candidate has a majority, so the candidate with the lowest vote total (candidate B) is eliminated. The preferences are updated again:
 
-    - A
-    - CAC
-    - CA
-    - CA
-    - CA
-    - AC
-    - CA
-    - CA
+    <Snippet file='votes3.txt'/>
 
     Now, candidate C has five votes and wins the election. It is important to note that in the first round of voting, candidate C was tied for second place. However, more voters preferred candidate C as a substitute if they couldn't get their preferred candidates.
 
-    We will develop a program that implements the ranked choice voting algorithm assuming we have complete preferences from each voter. The program will be developed in stages:
+    We will develop a program that implements the ranked choice voting algorithm. The program will be developed in stages:
 
     ## The Ballot Class
+
+    We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots.
 
     <Snippet file='Ballot.java' line_start={8} line_end={13}/>
     
@@ -54,6 +36,7 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     <Snippet file='Ballot.java' />
     
     ## Counting Votes
+    
     hi
 
     ## Incomplete preferences
@@ -67,7 +50,26 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
     <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
 
+    ## Handling Ties
+    In the oneRound method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote. 
+
+    <Snippet file='CountVotes.java' line_start={59} line_end={61}/>
+
+    Still, a new challenge arises in situations where there are multiple remaining candidates with the same number of votes in rounds after the first one. In such cases, it is necessary to eliminate one candidate to avoid a tie. 
+
+    After conducting research, we discovered that the ranked choice voting system has many tie-breaking rules to choose from. For example, the candidate with the fewest first-choice votes can be eliminated. If there is a tie for the fewest first-choice votes, the candidate with the fewest second-choice votes is eliminated, and so on.
+
+    <Snippet file='votes_tie.txt'/>
+
+    We realised that the previous rule wouldn't work in this case, because in the previous and only round, the two lower candidates, A and B, also had the same number of votes. We decided to implement other rule: if there is a tie in the minimum number of votes between two or more candidates in a round, the algorithm will eliminate one of those candidates based on the order in which they appear in the input data, since in the "while" loop the votes are reviewed in that order.
+
+    <Snippet file='CountVotes.java' line_start={30} line_end={30}/>
+    <Snippet file='CountVotes.java' line_start={50} line_end={53}/>
+    <Snippet file='CountVotes.java' line_start={67} line_end={71}/>
+
     Putting these pieces together, you get the following complete program:
     <Snippet file='CountVotes.java' />
+
+    ## Conclusion
 
 </WeekLayout>

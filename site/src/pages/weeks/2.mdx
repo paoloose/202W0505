@@ -8,6 +8,9 @@ import Snippet from '@components/Snippet.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 
 <WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#logic-parser' n_week={2}>
+    
+    # Introduction
+
     When considering data structures and algorithms, it is essential to recognize that their abstraction extends beyond computational areas. In fact, society itself has demonstrated the significant impact of these abstract concepts by applying them to various spheres, including voting systems. In the United States, Ranked Choice Voting, also known as instant-runoff voting, has gained prominence as a voting system where voters rank candidates in order of preference. Let's briefly explore how this system works:
 
     To simplify things, let's use the candidates A, B, C, and D. Here is a list of voting preferences:
@@ -24,33 +27,81 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
     Now, candidate C has five votes and wins the election. It is important to note that in the first round of voting, candidate C was tied for second place. However, more voters preferred candidate C as a substitute if they couldn't get their preferred candidates.
 
-    We will develop a program that implements the ranked choice voting algorithm. The program will be developed in stages:
+    We will develop a program that implements the ranked choice voting algorithm using `ArrayList` in Java. The program will be developed in stages:
 
-    ## The Ballot Class
 
-    We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots.
 
-    <Snippet file='Ballot.java' line_start={8} line_end={13}/>
+    # The Ballot Class
 
-    The Ballot Class should look like following:
-    <Snippet file='Ballot.java' />
+    We considered appropiate to define the preferences of a single voter as a "ballot," and the collection of all ballots. We decided to list each voter's preferences as a single line of data with the candidates listed from most desirable to least desirable, each separated with a tab character, making it easier to break up such a string into an array of strings. That's why the constructor will take an array of strings as a parameter:
 
-    ## Counting Votes
+    <Snippet file='Ballot.java' line_start={7} line_end={7}/>
 
-    hi
+    Due to the need of storing and eliminating candidates in every round, a dynamic data structure such as an `ArrayList` is suitable for this task.
+    
+    <Snippet file='Ballot.java' line_start={4} line_end={12}/>
 
-    ## Incomplete preferences
+    Now, we provided a list of important behaviours for the class:
+    - Method that returns the current top choice of a voter, which will always be the first element of your list (`index 0`).
+    
+    <Snippet file='Ballot.java' line_start={14} line_end={20}/>
+
+    - Eliminate a candidate from consideration. The `ArrayList` comes in handy for this because you can simply call its `remove` method to remove a value:
+
+    <Snippet file='Ballot.java' line_start={22} line_end={24}/>
+    
+    ### The Comparable Interface
+
+    - To make it easier to count votes, it would be helpful if a list of ballots could be sorted by candidate name. That way all of the votes for a given candidate will be grouped together. That means that you need to have the Ballot class implement the `Comparable interface`. The idea is to make it
+    easier to count votes, so you want to use the candidate names to put
+    them in order. The names are stored as strings and the String class
+    implements Comparable. That means you can use the compareTo
+    method of the individual strings that represent the candidate names
+    to perform this comparison:
+
+
+    # Counting Votes
+
+    Now that we have code to represent a ballot, we can turn to writing
+the overall program in a separate file called TallyVotes.java .
+Assume that votes are stored in a file called vote.txt . The first
+version of your program is supposed to read the information from
+this file to create an ArrayList of Ballot objects. You can then sort
+the list by candidate name and count the votes. As with the calendar
+sample program, you can call Collections.sort to sort the list. The
+reading and vote counting operations deserve to be written as
+methods. That leads to the following main method:
+
+...
+The readFile method involves reading the input file line by line and
+adding Ballot objects to an ArrayList . The Ballot constructorexpects an array of strings to specify the candidate choice. Recall
+that the plan is to have each input line list the candidates with tabs
+between candidate names. The String class has a method called
+split that provides a convenient way to break up this string into the
+individual names. It takes a parameter that specifies what separator
+or delimiter to use. The reading method, then, can be written as
+follows:
+
+    ### Incomplete preferences
     Voters are normally allowed to fill out the ballot in an incomplete manner. For example, with the sample ballots with four candidates, you might have ballots that specify only a first choice or only two choices. When you have partial information, you can end up with empty ballots because the voter might have chosen candidates who are all eliminated.
 
     <Snippet file='votes_incomplete.txt' />
 
     After the first round, the D candidate would be eliminated. As it is the only voter's preference, the ballot will be left empty. The program should be able to remove the empty ballot for the next round and modify the percentages of the votes, considering that the total number of ballots is changing.
 
-    We'll begin by creating a
+    The `isEmpty` method implemented in `Ballot.java` will indicate that there are no candidates left.
+
+    <Snippet file='Ballot.java' line_start={26} line_end={28}/>
+
+    Moving onto the `CountVotes` program, it was necessary to include a test that ignores blank lines in the input file.
+
+    <Snippet file='CountVotes.java' line_start={19} line_end={28}/>
+    
+    The method that eliminates candidates, must also remove from the list of ballots any ballots that become empty. That way the percentages will be reported correctly on the next round of tallying.
 
     <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
 
-    ## Handling Ties
+    ### Handling Ties
     In the oneRound method, we handle ties by stopping the algorithm if there's a tie between remaining candidates where each of them earns exactly 50% of the vote.
 
     <Snippet file='CountVotes.java' line_start={59} line_end={61}/>
@@ -67,9 +118,12 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     <Snippet file='CountVotes.java' line_start={50} line_end={53}/>
     <Snippet file='CountVotes.java' line_start={67} line_end={71}/>
 
-    Putting these pieces together, you get the following complete program:
-    <Snippet file='CountVotes.java' />
+    # Conclusion
+    
+    The Ballot Class should look like following:
+    <Snippet file='Ballot.java' />
 
-    ## Conclusion
+    Putting these pieces together, you get the following complete program for counting votes:
+    <Snippet file='CountVotes.java' />
 
 </WeekLayout>

@@ -14,7 +14,7 @@ type Props = {
 
 const { main_id, n_week, h1_title } = Astro.props;
 
-const GITHUB_URL = `${REPO_URL}/tree/main/site/src/pages/weeks/${n_week}.astro`;
+const GITHUB_URL = `${REPO_URL}/tree/main/site/src/pages/weeks/${n_week}.mdx`;
 
 if (import.meta.env.PROD) {
   // Runs on `astro build`

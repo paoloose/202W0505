@@ -1,0 +1,33 @@
+---
+import { SNIPPETS_BASE_URL } from 'src/constants';
+import fs from 'node:fs/promises';
+
+type Props = {
+  file: string;
+  line_start?: number;
+  line_end?: number;
+}
+
+const { file, line_start, line_end } = Astro.props;
+
+const url = new URL(`${SNIPPETS_BASE_URL}/${file}`, import.meta.url);
+
+let content = await fs.readFile(url, 'utf-8');
+content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
+---
+
+<code>
+  {content}
+</code>
+
+<style lang="scss">
+  code {
+    display: block;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    overflow: auto;
+    white-space: pre;
+    margin-bottom: 10px;
+  }
+</style>

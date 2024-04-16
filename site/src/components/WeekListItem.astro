@@ -5,13 +5,12 @@ import type { ProjectPage } from '@types';
 type Props = ProjectPage;
 
 const { page } = Astro.props;
-const { metadata } = page;
 ---
 
 <Link href={page.url}>
-  <h4>{metadata.title}</h4>
+  <h4>{page.frontmatter.title}</h4>
 </Link>
-<p>{metadata.description}</p>
+<p>{page.frontmatter.description}</p>
 
 <style>
   a {

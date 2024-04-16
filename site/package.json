@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
+    "@astrojs/mdx": "^2.3.0",
     "astro": "^4.6.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "sass": "^1.75.0"
   }
 }

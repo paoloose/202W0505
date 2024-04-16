@@ -1,0 +1,16 @@
+---
+title: 'Assignment 1: Plagiarism detection'
+description: 'First assignment, insert description'
+img: ''
+---
+
+import Snippet from '@components/Snippet.astro';
+import WeekLayout from '@layouts/WeekLayout.astro';
+
+<WeekLayout h1_title='Detector antiplagio' main_id='#logic-parser' n_week={1}>
+  <Snippet file='Example.java' />
+
+  Some literature...
+
+  <Snippet file='Example.java' line_start={8} line_end={13}/>
+</WeekLayout>

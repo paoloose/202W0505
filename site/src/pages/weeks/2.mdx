@@ -52,13 +52,9 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     
     ### The Comparable Interface
 
-    - To make it easier to count votes, it would be helpful if a list of ballots could be sorted by candidate name. That way all of the votes for a given candidate will be grouped together. That means that you need to have the Ballot class implement the `Comparable interface`. The idea is to make it
-    easier to count votes, so you want to use the candidate names to put
-    them in order. The names are stored as strings and the String class
-    implements Comparable. That means you can use the compareTo
-    method of the individual strings that represent the candidate names
-    to perform this comparison:
+    - To make it easier to count votes, we sort the list of ballots by candidate name. That way all of the votes for a given candidate will be grouped together. That means the `Ballot` class must implement the `Comparable interface`. The names are stored as strings and the `String class` implements `Comparable`, leaving us with the possibility to use the `compareTo` method to perform this comparison:
 
+    <Snippet file='Ballot.java' line_start={30} line_end={33}/>
 
     # Counting Votes
 
@@ -72,6 +68,7 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     <Snippet file='CountVotes.java' line_start={19} line_end={28}/>
 
     - `oneRound`: involves counting the votes for each candidate and determining if there is a winner. If there is no winner, the candidate with the fewest votes is eliminated. The method returns a boolean value that indicates whether the voting has ended.
+    There are three possible outcomes. If the count for the top candidate is more than 50%, then that candidate has won. Otherwise, you would normally eliminate the candidate with the lowest vote total. However, there is one special case to consider. When there are only two candidates remaining and they both earn exactly 50% of the vote, there is no winner and the algorithm should stop.
 
     <Snippet file='CountVotes.java' line_start={30} line_end={72}/>
 

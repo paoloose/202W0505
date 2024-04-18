@@ -14,7 +14,7 @@ type Props = {
 
 const { main_id, n_week, h1_title } = Astro.props;
 
-const GITHUB_URL = `${REPO_URL}/tree/main/site/src/pages/weeks/${n_week}.mdx`;
+const GITHUB_URL = `${REPO_URL}/blob/main/site/src/pages/weeks/${n_week}.mdx?plain=1`;
 
 if (import.meta.env.PROD) {
   // Runs on `astro build`
@@ -29,7 +29,7 @@ if (import.meta.env.PROD) {
     <section>
       <h1>{h1_title}</h1>
       <AvailableAtGithub href={GITHUB_URL}>
-        @paoloose/{PROJECT_NAME}/{n_week}
+        @grupo6/{PROJECT_NAME}/{n_week}
       </AvailableAtGithub>
     </section>
     <section id={main_id}>

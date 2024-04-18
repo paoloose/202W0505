@@ -1,0 +1,115 @@
+---
+title: 'Assignment 2: Ranked Choice Voting'
+description: 'Building Java Programs Chapter 10: ArrayList. Study Case.'
+img: ''
+---
+
+import Snippet from '@components/Snippet.astro';
+import WeekLayout from '@layouts/WeekLayout.astro';
+
+<WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#logic-parser' n_week={2}>
+
+    # Introducción
+
+    Cuando se trabaja con estructuras de datos y algoritmos, es esencial reconocer que su abstracción se extiende más allá que áreas computacionales. De hecho, la sociedad misma ha demostrado el gran impacto de estos conceptos, aplicándolo en varios casos, incluyendo sistemas de votos. En Estados Unidos, la votación por orden de preferencia, también conocida como votación de segunda vuelta instantánea, ha ganado prominencia como un sistema donde los votantes califican a los candidatos en orden de preferencia. Veamos brevemente como funciona este sistema:
+
+    Para simplicar las cosas, usemos los candidatos A, B, C y D. Aquí está una lista de preferencias de votación:
+
+    <Snippet file='votes1.txt'/>
+
+    En un proceso tradicional de votos, la primera elección de cada votante es contada. En este caso, el candidato A recibe tres votos, lo que representa el 37.5% de los ocho votos totales. Sin embargo, ningún candidato tiene una mayoría clara. En la votación por orden de preferencia, el candidato con el total de votos más bajo (candidato D) es eliminado. Las preferencias son actualizadas:
+
+    <Snippet file='votes2.txt'/>
+
+    Aún no hay candidato con una mayoría de votos, entonces el candidato con el total de votos más bajo, es eliminado. Las preferencias son actualizadas nuevamente:
+
+    <Snippet file='votes3.txt'/>
+
+    Ahora, el candidato C tiene 5 votos y gana la elección. Es importante notar que en la primera ronda de votación, el candidato C estaba empatado por el segundo puesto. Sin embargo, habían más votantes que preferían al candidato C como un substituto, si es que sus condidatos preferidos no hubieran ganado.
+
+    Desarrollaremos un programa que implemente el algortimo de votacion por orden de preferencia utilizando "ArrayList" em Java. El programa será desarrollado en etapas:
+
+
+
+    # La clase Ballot
+
+    Consideramos apropiado el definir las preferencias de un solo votante como un "ballot", y la colección de todas las votaciones. Decidimos enlistar las preferencias de cada votante como una sola línea de data con los candidatos listados desde más deseados a menos deseados, cada uno separado con un caracter tab, haciéndolo más facil el convertir un string en un array de strings. Es por eso que el constructor tomará un array de strings como parámetro:
+
+    <Snippet file='Ballot.java' line_start={7} line_end={7}/>
+
+    Debido a la necesidad de almacenar y eliminar candidatos en cada ronda, una estructura dinámica como un `ArrayList` es útil para esta tarea.
+
+    <Snippet file='Ballot.java' line_start={4} line_end={12}/>
+
+    Ahora, proveemos una lista de comportamientos importantes para la clase:
+    - Método que retorna la actual primera opción del votante, el cual siempre será el primer elemento de la lista (`index 0`).
+
+    <Snippet file='Ballot.java' line_start={14} line_end={20}/>
+
+    - Elimina un candidato de la consideración. El `ArrayList` nos viene a mano para esto, ya que con la llamada del método `remove` removemos un valor fácilmente:
+
+    <Snippet file='Ballot.java' line_start={22} line_end={24}/>
+
+    ### La Comparable Interface
+
+    - Para facilitar el conteo de votos, ordenamos la lista de votaciones por el nombre de candidatos. De esta manera todos los votos designados a un candidatos estarám todos juntos. Esto signifia que la clase `Ballot` debe implementar la `Comparable Interface`. Los nombres almacenados como strings y la `String class` implementan `Comparable`, dejándonos con la posibilidad de usar el método `compareTo` para realizar esta comparación:
+
+    <Snippet file='Ballot.java' line_start={30} line_end={33}/>
+
+    # Contando Votos
+
+    Ahora que las votaciones están representadas, podemos pasar a escribir el programa en general in un archivo aparte llamado `CountVotes.java`. Almacenamos los votos en el archivo `votes.txt`. El programa leerá la informacion del archivo para crear un `ArrayList` de las votaciones. Luego podemos ordenar la lista por el nombre de los candidatos  y contamos los votos llamando a `Collections.sort`. Además, al retornar un booleano en el método `oneRound`, sabemos si es que la votación ha terminado o no. Añadimos algo de código para reportar el número de la ronda. Lo cual nos lleva al siguiente método principal:
+
+    <Snippet file='CountVotes.java' line_start={4} line_end={17}/>
+
+    Las operaciones de lectura y conteo de votos deben ser escritas como métodos.
+    - `readFile`: involucra la lectura del archivo input línea por línea y añade los objetos Ballot a un `ArrayList`. El constructor del Ballot espera un array de strings para especificar la elección de candidatos. La clase String tiene un método llamado split que provee una manera conveniente de partir el string en nombres individuales. Esto toma un parámetro que especifica que separador o delimitante se va a utilizar.
+
+    <Snippet file='CountVotes.java' line_start={19} line_end={28}/>
+
+    - `oneRound`: involucra contar los votos para cada candidato y determina si hay un ganadosr. Si no hay ganador, el candidato con menos votos es eliminado. El método retorna un valor booleano que indica si la votación ha terminado o no.
+    Hay tres posibles resultados. Si el conteo para el candidato principal es más de 50%, entonces ese candidato ha ganado. De lo contrario, normalmente se eliminaría al candidato con el total de votos más bajo. Sin embargo, hay un caso especial a considerar. Cuando solo quedan dos candidatos y ambos ganan exactamente el 50% de los votos, no hay ganador y el algoritmo debería parar.
+
+    <Snippet file='CountVotes.java' line_start={30} line_end={72}/>
+
+    ### Preferencias incompletas
+    Los votadores normalmente tiene permitido llenar la votacion de una manera incompleta. Por ejemplo, con el ejemplo de votos con cuatro candidatos, podrías tener votos que especifican solo una primera elección o solo dos elecciones. Cuando tienes información parcial, puedes terminar con votos vacíos porque el votante podría haber elegido candidatos que son eliminados.
+
+    <Snippet file='votes_incomplete.txt' />
+
+    Después de la primera ronda, el candidato D sería eliminado. Como es la única preferencia del votante, la votación se dejará vacía. El programa debería ser capaz de remover la votación vacía para la siguiente ronda y modificar los porcentajes de los votos, considerando que el número total de votos está cambiando.
+
+    El método `isEmpty` implementa en `Ballot.java` indicará que no hay candidatos restantes.
+
+    <Snippet file='Ballot.java' line_start={26} line_end={28}/>
+
+    Pasando al programa `CountVotes`, fue necesario incluir un método que elimina candidatos pero también remueve de la lista de votos cualquier votación que se vuelva vacía. De esta manera los porcentajes serán reportados correctamente en la siguiente ronda de conteo.
+
+    <Snippet file='CountVotes.java' line_start={74} line_end={83}/>
+
+    ### Manejando Empates
+    En el método `oneRound`, detenemos el algoritmo si es que hay un empate entre los candidatos faltantes donde cada uno de ellos tiene exactamente el 50% de los votos.
+
+    <Snippet file='CountVotes.java' line_start={59} line_end={61}/>
+
+    Aun así, un nuevo reto surge en situaciones donde hay multiples candidatos restantes con el mismo número de votos en las rondas que siguen después de la primera. En dichos casos, es necesario eliminar un candidato para evitar un empate.
+
+    Después de realizar una investigación, descubrimos que la votacion por orden de preferencia tiene muchas reglas para evitar los empates. Por ejemplo, el candidato con menos votos como primera opción puede ser eliminado. Si hay un empate debido a la menor cantidad de votos como primeras opciones, el candidato con la menor cantidad de votos como segunda opción es eliminado, y así sucesivamente.
+
+    <Snippet file='votes_tie.txt'/>
+
+    Nos dimos cuenta que las reglas descritas previamente no nos ayudarían en este caso, porque en en las rondas anteriores, los dos candidatos con menos votos, A y B, tenían también el mismo número de votos. Por lo tanto, decidimos implementar otra regla: si hay un empate en el mínimo número de votos entre dos o más candidatos en una ronda, el algoritmo eliminaría uno de esos candidatos basándose en el orden por el cual aparecían en el input data, ya que en el bucle "while" los votos son revisados en ese orden.
+
+    <Snippet file='CountVotes.java' line_start={30} line_end={30}/>
+    <Snippet file='CountVotes.java' line_start={50} line_end={53}/>
+    <Snippet file='CountVotes.java' line_start={67} line_end={71}/>
+
+    # Conclusión
+
+    La clase Ballot debería verse de la siguiente manera:
+    <Snippet file='Ballot.java' />
+
+    Juntando las piezas, tenemos el siguiente programa para contar votos:
+    <Snippet file='CountVotes.java' />
+
+</WeekLayout>

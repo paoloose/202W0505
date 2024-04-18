@@ -6,6 +6,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: 'https://paoloose.site',
   base: '/202W0505',
+  trailingSlash: 'ignore',
   integrations: [mdx()],
   vite: {
     plugins: []
@@ -15,4 +16,7 @@ export default defineConfig({
       theme: 'github-light',
     }
   },
+  redirects: {
+    '/weeks': '/202W0505',
+  }
 });

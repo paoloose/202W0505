@@ -1,19 +1,25 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+type Props = {
+  href?: string,
+  back?: boolean,
+};
 
-type Props = HTMLAttributes<'a'>;
-
-const { href, ...attrs } = Astro.props;
+const { back, href, ...attrs } = Astro.props;
 const { BASE_URL } = import.meta.env;
 
-if (typeof href !== 'string') {
-  throw new Error('The `href` prop is required for the `Link` component.');
+if (back === undefined && typeof href !== 'string') {
+  throw new Error('The `href` prop is required for the `Link` component when it is not "back".');
 }
 
 let url: string = '';
 
-if (href.startsWith(BASE_URL) || url.startsWith('http')) {
-  url = href;
+if (back) {
+  // this is the url without the last path
+  url = `/${Astro.url.pathname.split('/').filter(p => p).slice(0, -1).join('/')}/`;
+  if (url === '//') url = '/';
+}
+else if (href!.startsWith(BASE_URL) || url.startsWith('http')) {
+  url = href!;
 }
 else {
   const base = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;

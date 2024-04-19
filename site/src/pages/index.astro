@@ -7,7 +7,7 @@ import banner from '@assets/banner.webp';
 import githubLogo from '@assets/github_light.svg';
 import type { ProjectPageInstance } from '@types';
 
-const projects = await Astro.glob('./weeks/*.mdx');
+const projects = await Astro.glob('./weeks/**/index.astro');
 ---
 
 <Layout title="Data structures portfolio">
@@ -32,7 +32,7 @@ const projects = await Astro.glob('./weeks/*.mdx');
         </section>
         <footer id="github">
           <Image src={githubLogo} alt="The GitHub logo" />
-          <a href="https://github.com/paoloose/202W0505" target="_blank">@paoloose/202W0505</a>
+          <a href="https://github.com/paoloose/202W0505" target="_blank">@grupo1/202W0505</a>
         </footer>
       </div>
       <Image class="clouds" width={350} src={banner} alt="Clouds moving across the sky" />

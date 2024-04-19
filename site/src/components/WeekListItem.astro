@@ -8,9 +8,11 @@ const { page } = Astro.props;
 ---
 
 <Link href={page.url}>
-  <h4>{page.frontmatter.title}</h4>
+  <h4>{page.metadata.title}</h4>
 </Link>
-<p>{page.frontmatter.description}</p>
+<p>
+  <Fragment set:html={page.metadata.description} />
+</p>
 
 <style>
   a {
@@ -18,17 +20,13 @@ const { page } = Astro.props;
     padding: 0;
     margin: 0px 0px 10px 0px;
   }
-
   h4 {
     padding: 0;
     margin: 0;
   }
-
   p {
-    margin: 0;
-    text-wrap: balance;
+    margin-top: 12px;
   }
-
   li {
     display: inline-block;
     list-style: none;

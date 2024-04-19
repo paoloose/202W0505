@@ -1,13 +1,13 @@
----
-title: 'Assignment 2: Ranked Choice Voting'
-description: 'Building Java Programs Chapter 10: ArrayList. Study Case.'
-img: ''
----
-
 import Snippet from '@components/Snippet.astro';
+import Dialog from '@components/Dialog.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 
-<WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#logic-parser' n_week={2}>
+<WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#ranked_choice_voting' n_week={2}>
+
+    <Dialog title='Ejercicio 3'>
+        Desarrollar el estudio de caso: Votación por orden de preferencia, y el proyecto de programación número 5 del capítulo 10
+        del libro *Building Java Programs*.
+    </Dialog>
 
     # Introducción
 
@@ -28,8 +28,6 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     Ahora, el candidato C tiene 5 votos y gana la elección. Es importante notar que en la primera ronda de votación, el candidato C estaba empatado por el segundo puesto. Sin embargo, habían más votantes que preferían al candidato C como un substituto, si es que sus condidatos preferidos no hubieran ganado.
 
     Desarrollaremos un programa que implemente el algortimo de votacion por orden de preferencia utilizando "ArrayList" em Java. El programa será desarrollado en etapas:
-
-
 
     # La clase Ballot
 

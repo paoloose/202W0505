@@ -1,18 +1,14 @@
----
-title: 'Assignment 1: Plagiarism detection'
-description: 'First assignment, insert description'
-img: ''
----
-
 import Snippet from '@components/Snippet.astro';
 import FileButton from '@components/FileButton.astro';
+import Dialog from '@components/Dialog.astro';
+import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 
-<WeekLayout h1_title='Detector antiplagio' main_id='#logic-parser' n_week={1}>
-  #### Ejercicio 1
-
-  Escriba una versión modificada del programa de vocabulario desarrollado que
-  utilice `Set`s en lugar de `ArrayList`s para almacenar sus palabras.
+<WeekLayout h1_title='Estudio de caso: comparación de vocabulario' main_id='#logic-parser' n_week={1}>
+  <Dialog title='Ejercicio 1'>
+    Escriba una versión modificada del programa de vocabulario desarrollado que
+    utilice `Set`s en lugar de `ArrayList`s para almacenar sus palabras.
+  </Dialog>
 
   #### Desarrollo
 
@@ -36,10 +32,12 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
   <Snippet file='AntiplagioV2.java' line_start={35} line_end={39} />
 
-  #### Ejercicio 2
+  ——
 
-  Probar el programa con un par de obras literarias de un mismo autor y considerar
-  los caracteres con tildes.
+  <Dialog title='Ejercicio 2'>
+    Probar el programa con un par de obras literarias de un mismo autor y considerar
+    los caracteres con tildes.
+  </Dialog>
 
   #### Desarrollo
 
@@ -54,6 +52,8 @@ import WeekLayout from '@layouts/WeekLayout.astro';
   <FileButton file='cortazar_bestiario.txt' />
   <br />
   <FileButton file='cortazar_historia_de_cronopios_y_de_fama.txt' />
+
+  El programa obtiene el siguiente resultado:
 
   ```txt
   Este programa compara dos archivos de texto
@@ -75,6 +75,6 @@ import WeekLayout from '@layouts/WeekLayout.astro';
   representan los milisegundos de extracción de palabras únicas en el archivo 1, archivo 2
   y la intersección de palabras, respectivamente.
 
-  \- Grupo 6
+  <Link back>Go back</Link>
 
 </WeekLayout>

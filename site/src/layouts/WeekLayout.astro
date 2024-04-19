@@ -25,11 +25,11 @@ if (import.meta.env.PROD) {
 <Layout title={`Assignments: project ${n_week}`}>
   <Header />
   <main>
-    <Link href="/">Go back</Link>
+    <Link back>Go back</Link>
     <section>
       <h1>{h1_title}</h1>
       <AvailableAtGithub href={GITHUB_URL}>
-        @grupo6/{PROJECT_NAME}/{n_week}
+        @grupo1/{PROJECT_NAME}/{n_week}
       </AvailableAtGithub>
     </section>
     <section id={main_id}>
@@ -46,16 +46,13 @@ if (import.meta.env.PROD) {
   html {
     scrollbar-gutter: stable;
   }
-
   main {
     margin: 0 auto;
     padding: 3rem 1.5rem;
     max-width: 100ch;
   }
-
   section {
   }
-
   svg {
     display: none;
   }
@@ -65,7 +62,6 @@ if (import.meta.env.PROD) {
   code {
     font-size: 14px;
   }
-
   pre code {
     font-size: 14px;
   }

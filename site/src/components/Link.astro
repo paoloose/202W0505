@@ -4,7 +4,7 @@ type Props = {
   back?: boolean,
 };
 
-const { back, href, ...attrs } = Astro.props;
+const { back, href } = Astro.props;
 const { BASE_URL } = import.meta.env;
 
 if (back === undefined && typeof href !== 'string') {
@@ -21,10 +21,15 @@ if (back) {
 else if (href!.startsWith(BASE_URL) || url.startsWith('http')) {
   url = href!;
 }
-else {
+else if (href!.startsWith('/')) {
   const base = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
   url = `${base}${href}`;
 }
+else {
+  let { pathname } = Astro.url;
+  if (!pathname.endsWith('/')) pathname += '/';
+  url = `${pathname}${href}`;
+}
 ---
 
-<a href={url} {...attrs} target="_self"><slot /></a>
+<a href={url} target="_self"><slot /></a>

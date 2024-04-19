@@ -1,4 +1,4 @@
-import type { MDXInstance } from 'astro'
+import type { AstroInstance } from 'astro'
 
 export type ProjectMetadata = {
   title: string
@@ -6,7 +6,7 @@ export type ProjectMetadata = {
   img: string
 }
 
-export type ProjectPageInstance = MDXInstance<Record<string, any>> & {
+export type ProjectPageInstance = AstroInstance & {
   metadata: ProjectMetadata
 }
 

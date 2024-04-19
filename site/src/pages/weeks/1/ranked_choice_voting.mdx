@@ -1,6 +1,7 @@
 import Snippet from '@components/Snippet.astro';
 import Dialog from '@components/Dialog.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
+import Link from '@layouts/Link.astro';
 
 <WeekLayout h1_title='Chapter 10 Study Case: Ranked Choice Voting' main_id='#ranked_choice_voting' n_week={1}>
 
@@ -110,4 +111,5 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     Juntando las piezas, tenemos el siguiente programa para contar votos:
     <Snippet file='CountVotes.java' />
 
+    <Link back>Go back</Link>
 </WeekLayout>

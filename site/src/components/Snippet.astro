@@ -1,4 +1,5 @@
 ---
+import { PROJECT_NAME } from 'src/constants';
 import { Code } from 'astro:components';
 import fs from 'node:fs/promises';
 
@@ -22,7 +23,7 @@ content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
 ---
 
 <div>
-  <span>{file}</span>
+  <span><a href=`/${PROJECT_NAME}/code/${file}`>{file}</a></span>
   <Code code={content} lang="java" theme="github-light" />
 </div>
 

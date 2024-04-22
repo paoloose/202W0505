@@ -23,7 +23,7 @@ content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
 ---
 
 <div>
-  <span><a href=`/${PROJECT_NAME}/code/${file}`>{file}</a></span>
+  <span><a href=`/${PROJECT_NAME}/code/${file}` target="_blank">{file}</a></span>
   <Code code={content} lang="java" theme="github-light" />
 </div>
 

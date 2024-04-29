@@ -1,0 +1,18 @@
+import Snippet from '@components/Snippet.astro';
+import FileButton from '@components/FileButton.astro';
+import Dialog from '@components/Dialog.astro';
+import Link from '@components/Link.astro';
+import WeekLayout from '@layouts/WeekLayout.astro';
+
+<WeekLayout h1_title='Pilas' main_id='#logic-parser' n_week={2}>
+  <Dialog title='Ejercicio 1'>
+    Realice un programa para ingresar, eliminar y mostrar elementos de una Pila.
+    - El botón Ingresar Elemento permitirá el ingreso  de un elemento de la Pila (Push).
+    - El botón Eliminar Elemento permitirá eliminar un elemento de la Pila (Pop).
+    - El botón Mostrar Elementos presentará un JOptionPane con los elementos de la Pila.
+    - El botón Vaciar cola eliminará todos los elementos de la Pila, dejándola vacía. 
+  </Dialog>
+
+  <Link back>Go back</Link>
+
+</WeekLayout>

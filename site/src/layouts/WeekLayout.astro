@@ -3,17 +3,32 @@ import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Link from '@components/Link.astro';
 import AvailableAtGithub from '@components/AvailableAtGithub.astro';
-import { PROJECT_NAME, REPO_URL } from 'src/constants';
+import { BASE_URL_PATH, PROJECT_NAME, REPO_URL } from 'src/constants';
+import { returns200 } from 'src/utils';
 
 type Props = {
-  main_id: string,
+  main_id?: string,
   h1_title: string,
 }
 
 const { main_id, h1_title } = Astro.props;
 
-const week = Astro.url.pathname.replace(/\/$/, '').split('/').pop();
-const GITHUB_URL = `${REPO_URL}/blob/main/site/src/pages/weeks/${week}/`;
+const week = Astro.url.pathname.split(BASE_URL_PATH).at(-1)!.replace(/\/$/, '');
+const extensionsToTry = ['.mdx', '', '.astro'];
+
+let GITHUB_URL = '';
+
+for (const ext of extensionsToTry) {
+  const url = `${REPO_URL}/blob/main/site/src/pages/${week}${ext}?plain=1`
+  if (await returns200(url, { prodOnly: true })) {
+    GITHUB_URL = url;
+    break;
+  }
+}
+
+if (!GITHUB_URL) {
+  GITHUB_URL = REPO_URL;
+}
 ---
 
 <Layout title={h1_title}>
@@ -23,7 +38,7 @@ const GITHUB_URL = `${REPO_URL}/blob/main/site/src/pages/weeks/${week}/`;
     <section>
       <h1>{h1_title}</h1>
       <AvailableAtGithub href={GITHUB_URL}>
-        @grupo6/{PROJECT_NAME}/week/{week}
+        @grupo6/{PROJECT_NAME}{week}
       </AvailableAtGithub>
     </section>
     <section id={main_id}>

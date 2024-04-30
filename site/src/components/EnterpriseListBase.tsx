@@ -3,10 +3,12 @@ import {
   enterpriseListButton,
   enterpriseListHeader,
   enterpriseListInput,
+  enterpriseListInputsWrapper,
   enterpriseListStyles,
   enterpriseListTable,
   enterpriseListTableCell,
   enterpriseListTableHeader,
+  enterpriseListTableWrapper,
   enterpriseListWindowButton
 } from "./styles.css";
 import { useRef } from "react";
@@ -89,14 +91,10 @@ export function EnterpriseList({
     <main className={enterpriseListStyles}>
       <TitleBar title={title} />
       <form className={enterpriseListHeader} onSubmit={_handleSubmit}>
-        <div style={{ padding: 12 }}>
+        <div style={{ padding: 12, overflow: 'auto', }}>
           <fieldset>
             <legend>Datos del empleado</legend>
-            <section style={{
-              display: 'grid',
-              gridTemplateColumns: 'max-content max-content',
-              gap: 5,
-            }}>
+            <section className={enterpriseListInputsWrapper}>
               {
                 fields.map((f, i) => (
                   <Fragment key={i}>
@@ -119,6 +117,7 @@ export function EnterpriseList({
           display: 'grid',
           padding: 16,
           gap: 1,
+          overflow: 'auto',
           gridTemplateColumns: 'repeat(2, 1fr)',
           gridTemplateRows: 'repeat(3, 1fr)',
         }}>
@@ -135,7 +134,7 @@ export function EnterpriseList({
           <button className={enterpriseListButton} type="button" onClick={btnSalir}>Salir</button>
         </div>
       </form>
-      <section style={{ minHeight: 200, margin: 4, borderLeft: '2px solid #8a8885', borderTop: '2px solid #8a8885', borderRight: '2px solid #fcfcfc', borderBottom: '2px solid #fcfcfc' }}>
+      <section className={enterpriseListTableWrapper}>
         <table className={enterpriseListTable}>
           <thead>
             {/* Cabecera de la tabla */}
@@ -185,13 +184,28 @@ function TitleBar({ title }: { title: string }) {
       alignItems: 'center',
       justifyContent: 'space-between',
       height: 24,
+      overflow: 'hidden',
       paddingRight: 1,
       background: 'linear-gradient(90deg, #15205e, #3f4c87)',
     }}>
       <div>
-        <span style={{color: '#fff', marginLeft: 6, fontWeight: 500,}}>{'🐢'}{' '}{title}</span>
+        <span style={{
+          color: '#fff',
+          marginLeft: 6,
+          fontWeight: 500,
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          marginRight: 15,
+        }}>
+            {'🐢'}{' '}{title}
+        </span>
       </div>
-      <div>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifySelf: 'end',
+      }}>
         <button className={enterpriseListWindowButton} onClick={noop}>
           <img src={windowsTabButton1.src} alt="Minimizar" style={{maxWidth: '100%', maxHeight: '100%',}} />
         </button>

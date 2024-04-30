@@ -1,4 +1,6 @@
 ---
+import { normalizeForId } from 'src/utils';
+
 type Props = {
   title: string,
 }
@@ -8,7 +10,7 @@ const { title } = Astro.props;
 
 <div>
   {
-    title && <h4>{title}</h4>
+    title && <h4 id={normalizeForId(title)}>{title}</h4>
   }
   <slot />
 </div>
@@ -16,7 +18,8 @@ const { title } = Astro.props;
 <style lang="scss" >
   h4 {
     margin-top: 12px;
-    margin-bottom: 10px;
+    margin-bottom: -2px;
+    font-size: 17px;
   }
 
   div {

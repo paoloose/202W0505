@@ -6,14 +6,19 @@ import {
   enterpriseListStyles,
   enterpriseListTable,
   enterpriseListTableCell,
-  enterpriseListTableHeader
+  enterpriseListTableHeader,
+  enterpriseListWindowButton
 } from "./styles.css";
 import { useRef } from "react";
 import { noop } from "src/constants";
+import windowsTabButton1 from "@assets/icons/w95_button1.png";
+import windowsTabButton2 from "@assets/icons/w95_button2.png";
+import windowsTabButton3 from "@assets/icons/w95_button3.png";
 
 export type FormDataDict = { [k: string]: FormDataEntryValue };
 
 interface Props {
+  title: string,
   fields: string[];
   searchByField: string;
   data: FormDataDict[];
@@ -26,6 +31,7 @@ interface Props {
 }
 
 export function EnterpriseList({
+  title,
   fields,
   searchByField,
   data,
@@ -81,6 +87,7 @@ export function EnterpriseList({
 
   return (
     <main className={enterpriseListStyles}>
+      <TitleBar title={title} />
       <form className={enterpriseListHeader} onSubmit={_handleSubmit}>
         <div style={{ padding: 12 }}>
           <fieldset>
@@ -168,5 +175,33 @@ export function EnterpriseList({
       <section>
       </section>
     </main>
+  );
+}
+
+function TitleBar({ title }: { title: string }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: 24,
+      paddingRight: 1,
+      background: 'linear-gradient(90deg, #15205e, #3f4c87)',
+    }}>
+      <div>
+        <span style={{color: '#fff', marginLeft: 6, fontWeight: 500,}}>{'🐢'}{' '}{title}</span>
+      </div>
+      <div>
+        <button className={enterpriseListWindowButton} onClick={noop}>
+          <img src={windowsTabButton1.src} alt="Minimizar" style={{maxWidth: '100%', maxHeight: '100%',}} />
+        </button>
+        <button className={enterpriseListWindowButton} onClick={noop}>
+          <img src={windowsTabButton2.src} alt="Maximizar" style={{maxWidth: '100%', maxHeight: '100%',}} />
+        </button>
+        <button className={enterpriseListWindowButton} onClick={noop}>
+          <img src={windowsTabButton3.src} alt="Cerrar" style={{maxWidth: '100%', maxHeight: '100%',}} />
+        </button>
+      </div>
+    </div>
   );
 }

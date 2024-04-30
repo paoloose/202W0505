@@ -4,8 +4,13 @@ export const enterpriseListStyles = style({
     borderCollapse: 'collapse',
     width: '100%',
     backgroundColor: '#d2cfc7',
+    padding: 5,
     display: 'flex',
     flexDirection: 'column',
+    borderLeft: '2px solid #eae3ea',
+    borderTop: '2px solid #eae3ea',
+    borderRight: '1px solid #000000',
+    borderBottom: '1px solid #000000',
 });
 
 export const enterpriseListHeader = style({
@@ -43,6 +48,26 @@ export const enterpriseListButton = style({
     },
 });
 
+export const enterpriseListWindowButton = style({
+    display: 'table-cell',
+    borderLeft: '1.5px solid #fff',
+    borderTop: '1.5px solid #fff',
+    borderBottom: '1.5px solid #4f4f4f',
+    borderRight: '1.5px solid #4f4f4f',
+    verticalAlign: 'middle',
+    height: 18,
+    width: 18,
+    padding: 0,
+    marginRight: 3,
+    ":hover": {
+        opacity: 0.9,
+        cursor: 'pointer',
+    },
+    ":active": {
+        cursor: 'grabbing',
+    },
+});
+
 export const enterpriseListTable = style({
     borderCollapse: 'collapse',
     borderSpacing: 0,
@@ -54,6 +79,7 @@ export const enterpriseListTableHeader = style({
     borderBottom: '2px solid #565656',
     fontSize: 14,
     padding: 4,
+    userSelect: 'text',
     position: 'relative',
     ':before': {
         borderTop: '2px solid #fff',
@@ -75,6 +101,7 @@ export const enterpriseListTableCell = style({
     padding: 4,
     backgroundColor: '#fff',
     position: 'relative',
+    userSelect: 'text',
     ':before': {
         borderTop: '2px solid #fff',
         borderLeft: '2px solid #fff',

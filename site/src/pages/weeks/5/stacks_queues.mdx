@@ -4,8 +4,14 @@ import Dialog from '@components/Dialog.astro';
 import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 import { EnterpriseListStack } from '@components/EnterpriseListStack.tsx';
+import { EnterpriseListQueue } from '@components/EnterpriseListQueue.tsx';
 
 <WeekLayout h1_title='Pilas & Colas' main_id='#logic-parser' n_week={2}>
+  ## Implementación con colas
+
+  <EnterpriseListQueue client:load />
+
+  ## Implementación con pilas
 
   <EnterpriseListStack client:load />
 

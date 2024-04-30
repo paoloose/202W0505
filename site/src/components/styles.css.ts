@@ -16,6 +16,22 @@ export const enterpriseListStyles = style({
 export const enterpriseListHeader = style({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
+    '@media': {
+        '(max-width: 600px)': {
+            display: 'block',
+        }
+    }
+});
+
+export const enterpriseListInputsWrapper = style({
+    display: 'grid',
+    gridTemplateColumns: 'max-content max-content',
+    gap: 5,
+    '@media': {
+        '(max-width: 500px)': {
+            gridTemplateColumns: '1fr',
+        }
+    }
 });
 
 export const enterpriseListInput = style({
@@ -28,14 +44,12 @@ export const enterpriseListInput = style({
 });
 
 export const enterpriseListButton = style({
-    display: 'table-cell',
+    width: 'min-intrinsic',
     backgroundColor: '#d2cfc7',
-    height: '100%',
     borderLeft: '2px solid #fff',
     borderTop: '2px solid #fff',
     borderBottom: '2.2px solid #4f4f4f',
     borderRight: '2.2px solid #4f4f4f',
-    verticalAlign: 'middle',
     fontFamily: 'serif',
     fontSize: 14,
     ":hover": {
@@ -68,8 +82,19 @@ export const enterpriseListWindowButton = style({
     },
 });
 
+export const enterpriseListTableWrapper = style({
+    minHeight: 200,
+    margin: 4,
+    overflow: 'auto',
+    borderLeft: '2px solid #8a8885',
+    borderTop: '2px solid #8a8885',
+    borderRight: '2px solid #fcfcfc',
+    borderBottom: '2px solid #fcfcfc',
+})
+
 export const enterpriseListTable = style({
     borderCollapse: 'collapse',
+    overflow: 'auto',
     borderSpacing: 0,
     width: '100%',
 });

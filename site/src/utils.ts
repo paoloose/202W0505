@@ -25,5 +25,5 @@ export async function returns200(url: string, conf?: UrlCheckConf): Promise<bool
 }
 
 export function normalizeForId(str: string) {
-  return str.trim().toLowerCase().replace(/[\s\_]+/g, '-');
+  return str.trim().toLowerCase().replace(/[\s\_]+/g, '_');
 }

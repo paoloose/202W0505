@@ -16,6 +16,7 @@ import { noop } from "src/constants";
 import windowsTabButton1 from "@assets/icons/w95_button1.png";
 import windowsTabButton2 from "@assets/icons/w95_button2.png";
 import windowsTabButton3 from "@assets/icons/w95_button3.png";
+import { normalizeForId } from "src/utils";
 
 export type FormDataDict = { [k: string]: FormDataEntryValue };
 
@@ -45,6 +46,7 @@ export function EnterpriseList({
   btnSalir,
 }: Props) {
   const incrementalId = useRef(1);
+  const prefixId = normalizeForId(title);
 
   const forEachFormField = (callback: (field: string, input: HTMLInputElement) => void) => {
     fields.forEach((fname) => {
@@ -56,7 +58,7 @@ export function EnterpriseList({
   }
 
   const getInputElementForField = (fieldName: string) => {
-    return window.document.querySelector(`form #${fieldName}`) as HTMLInputElement | null;
+    return window.document.querySelector(`form #${prefixId}_${normalizeForId(fieldName)}`) as HTMLInputElement | null;
   }
 
   const _handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -98,10 +100,10 @@ export function EnterpriseList({
               {
                 fields.map((f, i) => (
                   <Fragment key={i}>
-                    <label htmlFor={f}>{f}</label>
+                    <label htmlFor={`${prefixId}_${f}`}>{f}</label>
                     <input
                       required
-                      id={f}
+                      id={`${prefixId}_${normalizeForId(f)}`}
                       name={f}
                       type="text"
                       autoComplete="off"

@@ -5,6 +5,7 @@ import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 import { EnterpriseListStack } from '@components/EnterpriseListStack.tsx';
 import { EnterpriseListQueue } from '@components/EnterpriseListQueue.tsx';
+import { EnterpriseListProposedExercise } from '@components/EnterpriseListProposedExercise.tsx';
 
 <WeekLayout h1_title='Pilas & Colas'>
   ## Implementación con colas
@@ -25,15 +26,24 @@ import { EnterpriseListQueue } from '@components/EnterpriseListQueue.tsx';
 
     Donde: la comisión por ventas es el 5% de las ventas realizadas.
     El descuento por seguro se obtiene como sigue:
+
     - Si el empleado es soltero el descuento es de S/. 100.
     - Si el empleado es casado sin hijos el descuento es de S/. 120.
     - Si el empleado es casado con hijos el descuento es de S/. 50 + S/. 70 por cada hijo.
 
     Suponga que llamamos TA a la suma del Sueldo base + comisión por ventas, entonces el Descuento por el Impuesto (DI) se obtiene como sigue:
-    ...
+
+    | Rango del TA | Monto de DI |
+    | ------------ | ----------- |
+    | 0 a 1500     | 0           |
+    | 1500 a 2300  | 3% del TA   |
+    | 2301 a 3000  | 4% del TA   |
+    | 3001 a más   | 6% del TA   |
 
     El programa debe mostrar el monto total que la empresa debe pagar por concepto de sueldos, el monto total por comisiones de ventas, el monto total de los descuentos por impuesto y por seguro.
   </Dialog>
+
+  <EnterpriseListProposedExercise client:load />
 
   <Link back>Go back</Link>
 </WeekLayout>

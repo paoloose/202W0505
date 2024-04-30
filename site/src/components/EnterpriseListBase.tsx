@@ -32,6 +32,7 @@ interface Props {
   btnRestaurar?: () => void;
   btnSalir: () => void;
   computeFields?: { [k: string]: (data: FormDataDict) => {} };
+  footerInformation?: { [k: string]: () => string };
 }
 
 export function EnterpriseList({
@@ -45,7 +46,8 @@ export function EnterpriseList({
   btnActualizar,
   btnRestaurar,
   btnSalir,
-  computeFields,
+  computeFields = {},
+  footerInformation = {},
 }: Props) {
   const incrementalId = useRef(1);
   const prefixId = normalizeForId(title);
@@ -69,7 +71,7 @@ export function EnterpriseList({
     const data = Object.fromEntries(formData as any);
     // Additional fields: ID + computed_fields
     data['ID'] = (incrementalId.current++).toString();
-    Object.entries(computeFields || {}).map(([field, compute]) => {
+    Object.entries(computeFields).map(([field, compute]) => {
       data[field] = compute(data);
     });
 
@@ -181,7 +183,25 @@ export function EnterpriseList({
           </tbody>
         </table>
       </section>
-      <section>
+      <section style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        padding: Object.keys(footerInformation).length > 0 ? 10 : 0,
+        backgroundColor: '#0000ff',
+      }}>
+        {
+          Object.entries(footerInformation).map(([name, calculate], i) => (
+            <div key={i}>
+              <div style={{ marginBottom: 10, color: 'white', fontWeight: 600 }}>{name}</div>
+              <input
+                type="text"
+                disabled
+                value={calculate()}
+                style={{ backgroundColor: '#fff', color: 'black', }}
+              />
+            </div>
+          ))
+        }
       </section>
     </main>
   );

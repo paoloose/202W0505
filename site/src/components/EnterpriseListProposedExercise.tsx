@@ -13,6 +13,22 @@ export function EnterpriseListProposedExercise() {
       searchByField='NOMBRE'
       data={list.current.toArray()}
 
+      btnGuardar={(data) => {
+        list.current.enqueue(data);
+        refresh({});
+      }}
+      btnEliminar={() => {
+        list.current.dequeue();
+        refresh({});
+      }}
+      btnSalir={() => {
+        list.current.clear();
+        refresh({});
+      }}
+      btnConsultar={(code) => {
+        return list.current.find((e) => e['CODIGO'] === code);
+      }}
+
       computeFields={{
         'COMISION': (data) => Number(data['VENTAS']) * 0.05,
         'DCTO_SEGURO': (data) => {
@@ -39,20 +55,19 @@ export function EnterpriseListProposedExercise() {
         }
       }}
 
-      btnGuardar={(data) => {
-        list.current.enqueue(data);
-        refresh({});
-      }}
-      btnEliminar={() => {
-        list.current.dequeue();
-        refresh({});
-      }}
-      btnSalir={() => {
-        list.current.clear();
-        refresh({});
-      }}
-      btnConsultar={(code) => {
-        return list.current.find((e) => e['CODIGO'] === code);
+      footerInformation={{
+        'Empleado con el mayor sueldo': () => {
+          const max = list.current.toArray().reduce((acc, e) => {
+            if (!acc) return e;
+            return Number(e['SUELDO']) > Number(acc['SUELDO']) ? e : acc;
+          }, null);
+          if (!max) return '';
+          return max['NOMBRE'].toString().toUpperCase();
+        },
+        'Monto de sueldos acumulado': () => {
+          return list.current.toArray().reduce((acc, e) => acc + Number(e['SUELDO']), 0).toString();
+        },
+        'Tamaño': () => list.current.toArray().length.toString(),
       }}
     >
     </EnterpriseList>

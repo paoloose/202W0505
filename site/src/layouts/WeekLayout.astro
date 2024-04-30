@@ -9,12 +9,12 @@ import { ensureUrlReturns200 } from 'src/utils';
 type Props = {
   main_id: string,
   h1_title: string,
-  n_week: number
 }
 
-const { main_id, n_week, h1_title } = Astro.props;
+const { main_id, h1_title } = Astro.props;
 
-const GITHUB_URL = `${REPO_URL}/blob/main/site/src/pages/weeks/${n_week}/`;
+const week = Astro.url.pathname.replace(/\/$/, '').split('/').pop();
+const GITHUB_URL = `${REPO_URL}/blob/main/site/src/pages/weeks/${week}/`;
 
 if (import.meta.env.PROD) {
   // Runs on `astro build`
@@ -22,14 +22,14 @@ if (import.meta.env.PROD) {
 }
 ---
 
-<Layout title={`Assignments: project ${n_week}`}>
+<Layout title={h1_title}>
   <Header />
   <main>
     <Link back>Go back</Link>
     <section>
       <h1>{h1_title}</h1>
       <AvailableAtGithub href={GITHUB_URL}>
-        @grupo6/{PROJECT_NAME}/{n_week}
+        @grupo6/{PROJECT_NAME}/week/{week}
       </AvailableAtGithub>
     </section>
     <section id={main_id}>

@@ -4,7 +4,7 @@ import Dialog from '@components/Dialog.astro';
 import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 
-<WeekLayout h1_title='Estudio de caso: comparación de vocabulario' main_id='#logic-parser' n_week={1}>
+<WeekLayout h1_title='Estudio de caso: comparación de vocabulario' main_id='#logic-parser'>
   <Dialog title='Ejercicio 1'>
     Escriba una versión modificada del programa de vocabulario desarrollado que
     utilice `Set`s en lugar de `ArrayList`s para almacenar sus palabras.
@@ -15,7 +15,7 @@ import WeekLayout from '@layouts/WeekLayout.astro';
   En la implementación original:
 
   <Snippet file='AntiplagioV1.java' line_start={23} line_end={45} />
-  
+
   Podemos deshacernos de la lógica que elimina palabras repetidas, pues `Set`
   internamente ignora los elementos repetidos.
 

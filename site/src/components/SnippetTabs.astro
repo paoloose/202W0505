@@ -1,0 +1,189 @@
+---
+import { Image } from "astro:assets";
+import fs from "node:fs/promises";
+import { Code } from "astro:components";
+import { langDictionary } from "./config/programing_lang.config";
+
+type Props = {
+	tabs: Array<{
+		key: string;
+		label?: string;
+		file?: string;
+		line_start?: number;
+		line_end?: number;
+		lang: string;
+	}>;
+};
+
+const { tabs } = Astro.props;
+---
+
+<div class="container--tabs">
+	<section class="row">
+		<ul class="nav nav-tabs">
+			{
+				tabs.map((tab, index) => (
+					<li class={index === 0 ? "active" : ""}>
+						<a href={`#${tab.key}`} class="tab-button">
+							{langDictionary[tab.lang] ? (
+								<Image
+									src={langDictionary[tab.lang]}
+									alt={`${tab.label} logo`}
+								/>
+							) : (
+								<p>{tab.label}</p>
+							)}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<div class="tab-content">
+			{
+				tabs.map(async (tab, index) => {
+					let content = "";
+					if (tab.file) {
+						const url = new URL(
+							`./../assets/code/${tab.file}`,
+							import.meta.url,
+						);
+						let fileContent = await fs.readFile(url, "utf-8");
+
+						fileContent = fileContent
+							.split("\n")
+							.slice((tab.line_start ?? 1) - 1, tab.line_end)
+							.join("\n");
+						content = fileContent;
+					}
+					return (
+						<div
+							id={tab.key}
+							class={`tab-pane ${index === 0 ? "active" : ""}`}
+						>
+							<span>{tab.file}</span>
+							<Code
+								code={content}
+								lang="java"
+								theme="github-light"
+							/>
+						</div>
+					);
+				})
+			}
+		</div>
+	</section>
+</div>
+
+<style lang="scss">
+	pre {
+		border-radius: 0.5rem !important;
+		background-color: #f5f5f5 !important;
+		display: block;
+		padding:  1rem;
+		padding-top: 1.5rem;
+		font-size: 15px;
+		overflow: auto;
+		white-space: pre;
+		margin-bottom: 10px;
+		max-width: 100%;
+		overflow-x: auto;
+		word-wrap: break-word;
+		margin-top: 0 !important;
+	}
+
+	div {
+		position: relative;
+	}
+	span {
+		position: absolute;
+		top: 6px;
+		right: 10px;
+		z-index: 10000;
+		font-size: 14px;
+	}
+	.container--tabs {
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		width: 100%;
+	}
+
+	.nav-tabs {
+		display: flex;
+		justify-content: flex-end;
+		padding-left: 0;
+		margin-bottom: 0;
+		list-style: none;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.nav-tabs > li {
+		position: relative;
+		display: block;
+	}
+
+	.nav-tabs > li > a {
+		margin-right: 0;
+		padding: 10px 15px;
+		border: 1px solid transparent;
+		border-radius: 4px 4px 0 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 1px;
+	}
+
+	.nav-tabs > li > a:hover {
+		border-color: #eee #eee #ddd;
+	}
+
+	.nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:hover,
+	.nav-tabs > li.active > a:focus {
+		color: #555;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-bottom-color: transparent;
+		cursor: default;
+	}
+
+	.tab-content {
+		/* padding: 2.5% 3.5%; */
+		background-color: #efefef;
+	}
+
+	.tab-pane {
+		display: none;
+	}
+
+	.tab-pane.active {
+		display: block;
+		width: 100%;
+	}
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", (event) => {
+		const tabs = document.querySelectorAll(".nav-tabs a");
+		const tabPanes = document.querySelectorAll(".tab-pane");
+
+		function activateTab(tab: any) {
+			tabs.forEach((t) => t.parentElement?.classList.remove("active"));
+			tab.parentElement.classList.add("active");
+			const paneId = tab.getAttribute("href");
+			tabPanes.forEach((pane) => {
+				pane.classList.remove("active");
+				if (`#${pane.id}` === paneId) {
+					pane.classList.add("active");
+				}
+			});
+		}
+
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", (e) => {
+				e.preventDefault();
+				activateTab(e.currentTarget);
+			});
+		});
+	});
+</script>

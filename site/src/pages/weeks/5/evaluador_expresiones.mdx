@@ -1,0 +1,23 @@
+import Snippet from '@components/Snippet.astro';
+import FileButton from '@components/FileButton.astro';
+import Dialog from '@components/Dialog.astro';
+import Link from '@components/Link.astro';
+import WeekLayout from '@layouts/WeekLayout.astro';
+
+<WeekLayout h1_title='Estudio de Caso: Evaluador de Expresiones' main_id='#logic-parser' n_week={2}>
+  <Dialog title='Problema Propuesto'>
+    Modifique el programa del estudio de caso discutido para crear un nuevo programa que acepte como entrada una expresión infija con paréntesis y devuelva una cadena que represente una expresión postfija equivalente. Las expresiones Posfija son aquellas en las que cada operador sigue sus dos operandos, como 1 2 + en lugar de 1 + 2. Las expresiones Postfija son elegantes porque no necesitan paréntesis. Por ejemplo, la expresión infija dada: 
+
+    `(9 + (8 * 7 - (6/5 ^ 4) * 3) * 2)`
+
+es equivalente a la siguiente expresión postfija: 
+
+    `9 8 7 * 6 5 4 ^ / 3 * - 2 * + `
+
+Su algoritmo debe leer la expresión token por token, utilizando una pila para almacenar operadores. (Ya no necesita la pila de valores del estudio de caso original). En su lugar, cada vez que encuentre un número, agréguelo a una cadena que esté creando. Cada vez que encuentre un paréntesis derecho, abra la pila para obtener un operador y agréguelo a la cadena que está creando. Deje el resto del código en su lugar para preservar la verificación de errores. Devuelva la cadena "expresión ilegal" si se encuentra un error. 
+  </Dialog>
+
+  <Link back>Go back</Link>
+
+</WeekLayout>
+

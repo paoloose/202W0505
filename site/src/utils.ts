@@ -6,3 +6,7 @@ export async function ensureUrlReturns200(url: string) {
     throw new Error();
   }
 }
+
+export function normalizeForId(str: string) {
+  return str.trim().toLowerCase().replace(/[\s\_]+/g, '-');
+}

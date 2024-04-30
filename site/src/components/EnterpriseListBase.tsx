@@ -1,4 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
+import { useRef } from "react";
+import { noop } from "src/constants";
+import windowsTabButton1 from "@assets/icons/w95_button1.png";
+import windowsTabButton2 from "@assets/icons/w95_button2.png";
+import windowsTabButton3 from "@assets/icons/w95_button3.png";
+import { normalizeForId } from "src/utils";
 import {
   enterpriseListButton,
   enterpriseListHeader,
@@ -11,12 +17,6 @@ import {
   enterpriseListTableWrapper,
   enterpriseListWindowButton
 } from "./styles.css";
-import { useRef } from "react";
-import { noop } from "src/constants";
-import windowsTabButton1 from "@assets/icons/w95_button1.png";
-import windowsTabButton2 from "@assets/icons/w95_button2.png";
-import windowsTabButton3 from "@assets/icons/w95_button3.png";
-import { normalizeForId } from "src/utils";
 
 export type FormDataDict = { [k: string]: FormDataEntryValue };
 
@@ -31,6 +31,7 @@ interface Props {
   btnActualizar?: () => void;
   btnRestaurar?: () => void;
   btnSalir: () => void;
+  computeFields?: { [k: string]: (data: FormDataDict) => {} };
 }
 
 export function EnterpriseList({
@@ -44,6 +45,7 @@ export function EnterpriseList({
   btnActualizar,
   btnRestaurar,
   btnSalir,
+  computeFields,
 }: Props) {
   const incrementalId = useRef(1);
   const prefixId = normalizeForId(title);
@@ -64,8 +66,13 @@ export function EnterpriseList({
   const _handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
+    const data = Object.fromEntries(formData as any);
+    // Additional fields: ID + computed_fields
     data['ID'] = (incrementalId.current++).toString();
+    Object.entries(computeFields || {}).map(([field, compute]) => {
+      data[field] = compute(data);
+    });
+
     forEachFormField((_, input) => {
       input.value = '';
     });
@@ -143,7 +150,7 @@ export function EnterpriseList({
             <tr>
               <th className={enterpriseListTableHeader}>ID</th>
               {
-                fields.map((f, i) => (
+                fields.concat(Object.keys(computeFields ?? {})).map((f, i) => (
                   <th
                     key={i}
                     className={enterpriseListTableHeader}
@@ -159,10 +166,11 @@ export function EnterpriseList({
             {
               data.map((row, i) => (
                 <tr key={i}>
+                  { /* We create an additional ID field */}
                   <td className={enterpriseListTableCell}>{row['ID'].toString()}</td>
                   {
-                    fields.map((f, j) => (
-                      <td key={j} className={enterpriseListTableCell}>
+                    Object.keys(row).map((f, ii) => (
+                      <td key={ii} className={enterpriseListTableCell}>
                         {row[f].toString()}
                       </td>
                     ))

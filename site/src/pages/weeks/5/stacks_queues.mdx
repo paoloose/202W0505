@@ -3,28 +3,31 @@ import FileButton from '@components/FileButton.astro';
 import Dialog from '@components/Dialog.astro';
 import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
+import { EnterpriseListStack } from '@components/EnterpriseListStack.tsx';
 
 <WeekLayout h1_title='Pilas & Colas' main_id='#logic-parser' n_week={2}>
+
+  <EnterpriseListStack client:load />
+
   <Dialog title='Ejercicio Propuesto'>
-    Construya la solución del siguiente aplicativo usando Pilas y Colas. Su programa también tendrá la opción de consultar, actualizar y eliminar registros. 
-    Construya un aplicativo que permita guardar en una lista la información: Nombres, Apellido Paterno, Apellido Materno, Sueldo base, Ventas realizadas, Estado civil, Número de Hijos y Sueldo Neto. 
-    
-    El programa debe calcular para cada empleado el sueldo neto mediante la relación siguiente: 
+    Construya la solución del siguiente aplicativo usando Pilas y Colas. Su programa también tendrá la opción de consultar, actualizar y eliminar registros.
+    Construya un aplicativo que permita guardar en una lista la información: Nombres, Apellido Paterno, Apellido Materno, Sueldo base, Ventas realizadas, Estado civil, Número de Hijos y Sueldo Neto.
+
+    El programa debe calcular para cada empleado el sueldo neto mediante la relación siguiente:
 
     `Sueldo Neto = Sueldo base + Comisión por ventas - Descuento por seguro - Descuento por impuesto`
 
     Donde: la comisión por ventas es el 5% de las ventas realizadas.
-    El descuento por seguro se obtiene como sigue: 
-    - Si el empleado es soltero el descuento es de S/. 100. 
-    - Si el empleado es casado sin hijos el descuento es de S/. 120. 
-    - Si el empleado es casado con hijos el descuento es de S/. 50 + S/. 70 por cada hijo. 
+    El descuento por seguro se obtiene como sigue:
+    - Si el empleado es soltero el descuento es de S/. 100.
+    - Si el empleado es casado sin hijos el descuento es de S/. 120.
+    - Si el empleado es casado con hijos el descuento es de S/. 50 + S/. 70 por cada hijo.
 
-    Suponga que llamamos TA a la suma del Sueldo base + comisión por ventas, entonces el Descuento por el Impuesto (DI) se obtiene como sigue: 
+    Suponga que llamamos TA a la suma del Sueldo base + comisión por ventas, entonces el Descuento por el Impuesto (DI) se obtiene como sigue:
     ...
 
-    El programa debe mostrar el monto total que la empresa debe pagar por concepto de sueldos, el monto total por comisiones de ventas, el monto total de los descuentos por impuesto y por seguro. 
+    El programa debe mostrar el monto total que la empresa debe pagar por concepto de sueldos, el monto total por comisiones de ventas, el monto total de los descuentos por impuesto y por seguro.
   </Dialog>
 
   <Link back>Go back</Link>
-
 </WeekLayout>

@@ -13,13 +13,13 @@ type Props = {
 
 const { main_id, h1_title } = Astro.props;
 
-const week = Astro.url.pathname.split(BASE_URL_PATH).at(-1)!.replace(/\/$/, '');
+const route = Astro.url.pathname.split(BASE_URL_PATH).at(-1)!.replace(/\/$/, '').slice(1);
 const extensionsToTry = ['.mdx', '', '.astro'];
 
 let GITHUB_URL = '';
 
 for (const ext of extensionsToTry) {
-  const url = `${REPO_URL}/blob/main/site/src/pages/${week}${ext}?plain=1`
+  const url = `${REPO_URL}/blob/main/site/src/pages/${route}${ext}?plain=1`
   if (await returns200(url, { prodOnly: true })) {
     GITHUB_URL = url;
     break;
@@ -38,7 +38,7 @@ if (!GITHUB_URL) {
     <section>
       <h1>{h1_title}</h1>
       <AvailableAtGithub href={GITHUB_URL}>
-        @grupo6/{PROJECT_NAME}{week}
+        @grupo6/{PROJECT_NAME}/{route}
       </AvailableAtGithub>
     </section>
     <section id={main_id}>

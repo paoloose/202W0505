@@ -28,8 +28,6 @@ if (import.meta.env.PROD) {
   }
 }
 
-console.log({ assets_dir });
-
 const url = new URL(`${assets_dir}/${file}`, import.meta.url);
 
 let content = await fs.readFile(url, 'utf-8');

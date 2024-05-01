@@ -1,24 +1,24 @@
 import { useRef, useState } from "react";
 import { EnterpriseList, type FormDataDict } from "./EnterpriseListBase";
-import { Queue } from "src/structs/queue";
+import { Stack } from "src/structs/stack";
 
-export function EnterpriseListProposedExercise() {
+export function EnterpriseListProposedExerciseStack() {
   const [_, refresh] = useState({});
-  const list = useRef(new Queue<FormDataDict>());
+  const list = useRef(new Stack<FormDataDict>());
 
   return (
     <EnterpriseList
-      title='Ejercicio propuesto'
+      title='Ejercicio propuesto con stacks'
       fields={['NOMBRE', 'SUELDO', 'VENTAS', 'E_CIVIL', 'HIJOS']}
       searchByField='NOMBRE'
       data={list.current.toArray()}
 
       btnGuardar={(data) => {
-        list.current.enqueue(data);
+        list.current.push(data);
         refresh({});
       }}
       btnEliminar={() => {
-        list.current.dequeue();
+        list.current.pop();
         refresh({});
       }}
       btnSalir={() => {

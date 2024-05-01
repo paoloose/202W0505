@@ -5,18 +5,19 @@ import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
 import { EnterpriseListStack } from '@components/EnterpriseListStack.tsx';
 import { EnterpriseListQueue } from '@components/EnterpriseListQueue.tsx';
-import { EnterpriseListProposedExercise } from '@components/EnterpriseListProposedExercise.tsx';
+import { EnterpriseListProposedExerciseStack } from '@components/EnterpriseListProposedExerciseStack.tsx';
+import { EnterpriseListProposedExerciseQueue } from '@components/EnterpriseListProposedExerciseQueue.tsx';
 
 <WeekLayout h1_title='Pilas & Colas'>
   ## Implementación con colas
 
-  <Snippet file='@src/structs/queue.tsx' lang={'tsx'} />
+  <Snippet file='structs/queue.tsx' lang={'tsx'} />
 
   <EnterpriseListQueue client:load />
 
   ## Implementación con pilas
 
-  <Snippet file='@src/structs/stack.tsx' lang={'tsx'} />
+  <Snippet file='structs/stack.tsx' lang={'tsx'} />
 
   <EnterpriseListStack client:load />
 
@@ -51,7 +52,15 @@ import { EnterpriseListProposedExercise } from '@components/EnterpriseListPropos
 
   ### Desarrollo
 
-  <EnterpriseListProposedExercise client:load />
+  El ejercicio se ha implementado 2 veces, usando pilas y colas:
+
+  ### Con stacks
+
+  <EnterpriseListProposedExerciseStack client:load />
+
+  ### Con queues
+
+  <EnterpriseListProposedExerciseQueue client:load />
 
   ——
 

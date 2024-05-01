@@ -40,8 +40,8 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
-          cp -r ./src/assets/code ./public/
-          cp -r ./src ./public/code/src/
+          cp -r ./src/assets/code/ ./public/code/
+          cp -r ./src/ ./public/code/src/
           npx --no-install astro build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"

@@ -4,13 +4,11 @@ type UrlCheckConf = {
 
 export async function ensureUrlReturns200(url: string, conf?: UrlCheckConf) {
   if (conf?.prodOnly && process.env.NODE_ENV !== 'production') {
-    console.log(`Skipping URL check for ${url} in non-production environment`);
     return;
   }
 
   const response = await fetch(url);
   if (response.status !== 200) {
-    console.error(`Error fetching ${url}: ${response.statusText}`);
     throw new Error(`Error fetching ${url}: ${response.statusText}`);
   }
 }

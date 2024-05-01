@@ -17,16 +17,20 @@ type Props = {
 
 let { file, lang, line_start, line_end } = Astro.props;
 
-let assets_dir = './../assets/code';
-if (file.startsWith('@src')) {
-  file = file.replace('@src', '../..');
-}
-if (import.meta.env.PROD) {
-  assets_dir = '../code';
+let assets_dir;
+if (import.meta.env.DEV) {
+  assets_dir = './../assets/code';
   if (file.startsWith('@src')) {
-    file = file.replace('@src', '../code/src');
+    assets_dir = '../../src';
   }
 }
+else {
+  assets_dir = '../code';
+  if (file.startsWith('@src')) {
+    assets_dir = '../code/src'
+  }
+}
+file = file.replace('@src/', '');
 
 const url = new URL(`${assets_dir}/${file}`, import.meta.url);
 

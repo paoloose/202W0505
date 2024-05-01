@@ -2,19 +2,33 @@
 import { PROJECT_NAME } from 'src/constants';
 import { Code } from 'astro:components';
 import fs from 'node:fs/promises';
+import type {
+	BuiltinLanguage,
+	LanguageRegistration,
+	SpecialLanguage,
+} from 'shiki';
 
 type Props = {
   file: string;
+  lang?: BuiltinLanguage | SpecialLanguage | LanguageRegistration;
   line_start?: number;
   line_end?: number;
 }
 
-const { file, line_start, line_end } = Astro.props;
+let { file, lang, line_start, line_end } = Astro.props;
 
 let assets_dir = './../assets/code';
+if (file.startsWith('@src')) {
+  file = file.replace('@src', '../..');
+}
 if (import.meta.env.PROD) {
   assets_dir = '../code';
+  if (file.startsWith('@src')) {
+    file = file.replace('@src', '../code/src');
+  }
 }
+
+console.log({ assets_dir });
 
 const url = new URL(`${assets_dir}/${file}`, import.meta.url);
 
@@ -23,8 +37,12 @@ content = content.split('\n').slice((line_start ?? 1) - 1, line_end).join('\n');
 ---
 
 <div>
-  <span><a href=`/${PROJECT_NAME}/code/${file}` target="_blank">{file}</a></span>
-  <Code code={content} lang="java" theme="github-light" />
+  <span>
+    <a href=`/${PROJECT_NAME}/code/${file}` target="_blank">
+      {file.replace(/\/+$/, '').split('/').at(-1)}
+    </a>
+  </span>
+  <Code code={content} lang={lang ?? 'java'} theme="github-light" />
 </div>
 
 <style lang="scss">

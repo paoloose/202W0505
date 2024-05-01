@@ -41,6 +41,7 @@ jobs:
       - name: Build with Astro
         run: |
           cp -r ./src/assets/code ./public/code
+          cp -r ./src ./public/code
           npx --no-install astro build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"

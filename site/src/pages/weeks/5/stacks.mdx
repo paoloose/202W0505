@@ -3,6 +3,10 @@ import FileButton from '@components/FileButton.astro';
 import Dialog from '@components/Dialog.astro';
 import Link from '@components/Link.astro';
 import WeekLayout from '@layouts/WeekLayout.astro';
+import javastacks from '@assets/img/javastacks.png';
+import fullstack from '@assets/img/fullstack.png';
+import emptystack from '@assets/img/emptystack.png';
+import showstack from '@assets/img/showstack.png';
 
 <WeekLayout h1_title='Pilas'>
   <Dialog title='Ejercicio 1'>
@@ -11,6 +15,37 @@ import WeekLayout from '@layouts/WeekLayout.astro';
     - El botón Eliminar Elemento permitirá eliminar un elemento de la Pila (Pop).
     - El botón Mostrar Elementos presentará un JOptionPane con los elementos de la Pila.
     - El botón Vaciar cola eliminará todos los elementos de la Pila, dejándola vacía.
+
+    Sugerencias: 
+
+    - Crear una clase (ejemplo: PilaArray) con los atributos de tipo int: MAX, Pila[], cima 
+
+    - Constructor PilaArray() con las siguientes inicializaciones: 
+      - MAX=20;
+      - Pila = new int[MAX+1]; 
+      - Cima =0;
+
+    - Método IsPilaLlena( ) retorna boolean. Verifica que la Pila está llena. 
+
+    - Método IsPilaVacia( ) retorna boolean. Verifica que la Pila está vacía.
+
+    - Método InsertarPila( ) void.  Inserta un elemento en la Pila. Previamente verifica si la Pila está llena; en cuyo caso debe mostrar un mensaje con JOptionPane. 
+
+    - Método EliminarPila( ) void.  Elimina un elemento en la Pila. Previamente verifica si la Pila está vacía; en cuyo caso debe mostrar un mensaje con JOptionPane. 
+
+    - Método MostrarPila( ) Muestra los elementos de la Pila (con JOptionPane). Previamente verifica si la Pila está vacía; en cuyo caso debe mostrar un mensaje con JOptionPane. 
+
+    - Método VaciarPila( ): Elimina todos los elementos de la Pila. 
+
+    - Método primeroPila( ): muestra el primer elemento de la Pila. 
+
+    
+    En la clase que corresponde a la interfaz: 
+    - Crear un objeto de la clase PilaArray a nivel de clase. (ejemplo. objPila) 
+
+    - En el Constructor, inicializar el objeto: 
+        objPila = new PilaArray(10); 
+  
   </Dialog>
 
    #### Desarrollo
@@ -27,7 +62,15 @@ import WeekLayout from '@layouts/WeekLayout.astro';
 
   Visualización del programa:
 
-  *fotitos pues*
+  <img src={ javastacks.src } alt="Java GUI" />
+  <br />
+
+  <img src={ showstack.src } alt="Java GUI" />
+  <br />
+
+    <img src={ fullstack.src } alt="Java GUI" />
+    <img src={ emptystack.src } alt="Java GUI" />
+  <br />
 
   <Link back>Go back</Link>
 

@@ -60,7 +60,7 @@ export function EnterpriseListProposedExercise() {
           const max = list.current.toArray().reduce((acc, e) => {
             if (!acc) return e;
             return Number(e['SUELDO']) > Number(acc['SUELDO']) ? e : acc;
-          }, null);
+          }, null as any);
           if (!max) return '';
           return max['NOMBRE'].toString().toUpperCase();
         },

@@ -20,30 +20,6 @@ Su algoritmo debe leer la expresión token por token, utilizando una pila para a
   #### Desarrollo
 
   Comenzamos creando un mapa, que nos permitirá asignar un valor numérico a cada operador, para poder comparar su precedencia.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/main.rs' line_start={6} line_end={14} />
-
-  Para evitar errores o cualquier dificultad al momento de evaluar la expresión, utilizamos una función para eliminar los espacios en blanco.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/main.rs' line_start={54} line_end={56} />
-
-  Luego, debido a que un string no es iterable en rust, pasamos todos los caracteres de la expresión a un vector de caracteres.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/main.rs' line_start={16} line_end={23} />
-
-  Ahora, pasamos a recorrer el vector de caracteres, y dependiendo de si el caracter es un número, un operador o un paréntesis, realizamos las operaciones correspondientes.
-  Si es un número, lo agregamos a la cadena de salida. Si es un operador o paréntesis, llamamos a la función postfija.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/main.rs' line_start={25} line_end={34} />
-
-  Nuestra función postfija, se encarga de controlar la precedencia de los operadores en la pila, y de agregarlos a la cadena de salida.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/infija_to_postfija/postfija.rs' line_start={5} line_end={37} />
-
-  Una vez se ha recorrido todos los caracteres de la expresión, utilizamos la función pop_everything para vaciar la pila y agregar los operadores restantes a la cadena de salida.
-
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/main.rs' line_start={36} line_end={37} />
-  <Snippet key={'tab-3'} label={'Rust'} lang={'rust'} file='rust/evaluador_expresiones/src/infija_to_postfija/postfija.rs' line_start={39} line_end={45} />
   <Link back>Go back</Link>
 
 </WeekLayout>

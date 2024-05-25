@@ -20,6 +20,47 @@ Su algoritmo debe leer la expresión token por token, utilizando una pila para a
   #### Desarrollo
 
   Comenzamos creando un mapa, que nos permitirá asignar un valor numérico a cada operador, para poder comparar su precedencia.
+
+  <Snippet file='\rust\infija_a_postfija\src\main.rs' line_start={10} line_end={17}/>
+
+  Luego creamos un string con nuestra operación infija y utilizamos este mismo string para llamar a nuestra función postfija que nos devolverá un vector con la operación postfija.
+
+  <Snippet file='\rust\infija_a_postfija\src\main.rs' line_start={24} line_end={26}/>
+
+  Ahora explicaremos como funciona nuestra función postfija.
+  Lo que hacemos en verdad es crear un módulo llamado "postfija_and_popall" en el cual se encuentran tres funciones clave; postfija(), postfija_rules(), pop_everything().
+  La principal función viene a ser postfija(), la cual itera el string que damos como argumento y analiza si la data es un operador o un valor. 
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={4} line_end={38}/>
+  
+  Es en esta función donde se crea la pila y el vector que vamos a devolver con un orden postfijo.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={5} line_end={6}/>
+
+  Para iterar el string, pasamos todos sus caracteres en un vector llamado datos, ya que en Rust un string no es iterable.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={7} line_end={11}/>
+
+  Una vez tenemos todos los datos en el vector, iteramos este mismo para analizarlo.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={13} line_end={33}/>
+
+  Si un dato es un operador se llama a la función postfija_rules(). Esta función se encarga de manipular la pila.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={14} line_end={17}/>
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={40} line_end={75}/>
+
+  Continuando con la función principal, si el dato no es un operador, debemos empujar el dato al vector que queremos mandar. Realizamos una consistencia con ayuda de is_digit(10) y un auxiliar, que nos permite añadir cifras decimales o mayores de un dígito en nuestro vector a mostrar.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={18} line_end={31}/>
+
+  Por último, se vacía la pila con la función pop_everything() y mandamos nuestro vector con la operación en orden postfijo.
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={35} line_end={37}/>
+
+  <Snippet file='\rust\infija_a_postfija\src\infija_to_postfija\postfija.rs' line_start={77} line_end={85}/>
+
   <Link back>Go back</Link>
 
 </WeekLayout>
